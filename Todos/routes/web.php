@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AboutController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,6 +21,12 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/about' , function(){
-    return view('about');
-});
+
+Route::get('todos', 'TodosController@index');
+Route::get('todos/{todo}', 'TodosController@show' );
+Route::get('new-todos', 'TodosController@create' );
+Route::post('store-todos', 'TodosController@store');
+Route::get('todos/{todo}/edit', 'TodosController@edit');
+Route::post('todos/{todo}/update-todos', 'TodosController@update');
+Route::get('todos/{todo}/delete', 'TodosController@destroy');
+Route::get('todos/{todo}/complete', 'TodosController@complete');

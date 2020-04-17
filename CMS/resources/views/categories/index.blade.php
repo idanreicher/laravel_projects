@@ -12,31 +12,35 @@
                 Categories
             </div>
             <div class="card-body">
-                <table class="table">
-                    <thead>
-                       <th>Name</th>
-                </thead>
-                    <tbody>
-                        @foreach($categories as $category)
-                            <tr>
-                                <td>
-                                    {{$category->name}}
-                                </td>
-                                <td>
-                                <a href="{{route('categories.edit' , $category->id)}}" class="btn btn-info btn-sm">
-                                        Edit
-                                    </a>
-                                    <button type="button" class="btn btn-danger btn-sm" onclick="handelDelete({{$category->id}})" data-toggle="modal" data-target="#exampleModal">
-                                      Delete
-                                    </button>
+              @if($categories->count() > 0)
+              <table class="table">
+                <thead>
+                   <th>Name</th>
+            </thead>
+                <tbody>
+                    @foreach($categories as $category)
+                        <tr>
+                            <td>
+                                {{$category->name}}
+                            </td>
+                            <td>
+                            <a href="{{route('categories.edit' , $category->id)}}" class="btn btn-info btn-sm">
+                                    Edit
+                                </a>
+                                <button type="button" class="btn btn-danger btn-sm" onclick="handelDelete({{$category->id}})" data-toggle="modal" data-target="#exampleModal">
+                                  Delete
+                                </button>
 
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
 
 
-                </table>
+            </table>
+              @else
+                  <h3>No Catgories</h3>
+              @endif
 
 
                 <!-- Modal -->
@@ -54,7 +58,7 @@
                             </div>
                             <div class="modal-body">
                                 <p class="text-center text-bold">
-                                    are you sure you want to delete {{$category->name}} ?
+                                    are you sure you want to delete {{$category->name ?? ''}} ?
                                 </p>
                             </div>
                             <div class="modal-footer">

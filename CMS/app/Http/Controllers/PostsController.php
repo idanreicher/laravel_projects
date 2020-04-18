@@ -2,14 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Http\Requests\post\UpdatePostRequest;
 use Illuminate\Http\Request;
 use App\Http\Requests\Posts\CreatePostsRequest;
 use App\Post;
+use App\Tag;
 
 
 class PostsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('verifyCategoriesCount')->only('create', 'store');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -27,7 +33,7 @@ class PostsController extends Controller
      */
     public function create()
     {
-        return view('posts.create');
+        return view('posts.create')->with('categories' , Category::all())->with('tags' , Tag::all());
     }
 
     /**
@@ -39,14 +45,20 @@ class PostsController extends Controller
     public function store(CreatePostsRequest $request)
     {
         $image = $request->image->store('posts');
-        //dd($image);
-        Post::create([
+
+        $post = Post::create([
             'title' => $request->title,
             'description' => $request->description,
             'image' => $image,
             'content' => $request->content,
+            'category_id' => $request->category,
             'created_at' => $request->created_at
         ]);
+
+        if($request->tags){
+            dd($post->tags()->attach($request->tags));
+            $post->tags()->attach($request->tags);
+        }
 
         session()->flash('success' , 'post created');
 
@@ -72,7 +84,8 @@ class PostsController extends Controller
      */
     public function edit(Post $post)
     {
-        return view('posts.create')->with('post' , $post);
+
+        return view('posts.create')->with('post' , $post)->with('categories', Category::all())->with('tags' , Tag::all());
     }
 
     /**
@@ -94,6 +107,11 @@ class PostsController extends Controller
 
             $data['image'] = $image;
 
+        }
+
+        if($post->tags){
+
+            $post->tags()->sync($request->tags);
         }
 
         $post->update($data);

@@ -44,10 +44,58 @@
                 <input id="image" src="{{asset($post->image)}}" class="form-control" type="file" name="image" style="with:100%">
             </div>
             @else
+
+
             <div class="form-group">
                 <label for="image">Image</label>
                 <input id="image" class="form-control" type="file" name="image" >
             </div>
+
+
+            @endif
+
+            <div class="form-group">
+                <label for="category">Category</label>
+                <select id="category" class="form-control" name="category">
+
+                    @foreach($categories as $category)
+                    <option value="{{ $category->id }}"
+                        @if(isset($post))
+                            @if($category->id == $post->category->id)
+
+                            selected
+
+                        @endif
+
+                            @endif
+                           >
+                           {{ $category->name }}
+                        </option>
+
+                    @endforeach
+
+                </select>
+            </div>
+            @if($tags->count() > 0)
+
+                <div class="form-group">
+                    <label for="tags">Tags</label>
+
+                            <select name="tags[]" id="tags" class="form-control" multiple>
+                                @foreach($tags as $tag)
+                                    <option value="{{$tag->id}}"
+                                        @if(isset($post))
+                                            @if($post->hasTags($tag->id))
+                                                selected
+                                            @endif
+                                        @endif
+                                    >
+                                        {{$tag->name}}
+                                    </option>
+                                @endforeach
+
+                    </select>
+                </div>
             @endif
 
 

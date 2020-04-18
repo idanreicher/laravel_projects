@@ -9,25 +9,24 @@
         <div class="card">
             <div class="card-header">
 
-               {{isset($category) ? 'Edit category' : 'Create category'}}
+               {{isset($tags) ? 'Edit tag' : 'Create tag'}}
 
 
             </div>
             <div class="card-body">
+
+            <form action="{{isset($tags) ? route('tags.update', $tags->id) : route('tags.store')}}" method="POST">
                 @include('partials.errors')
-
-            <form action="{{isset($category) ? route('categories.update', $category->id) : route('categories.store')}}" method="POST">
-
-                @if(isset($category))
+                @if(isset($tags))
                     @method('PUT')
                 @endif
                 @csrf
                     <div class="form-group">
                     <label for="name">Name</label>
-                        <input id="name"  class="form-control" type="text" name="name" value="{{isset($category) ? $category->name : ''}}">
+                        <input id="name"  class="form-control" type="text" name="name" value="{{isset($tags) ? $tags->name : ''}}">
                     </div>
                     <div class="form-group">
-                        <button class="btn btn-success">{{  isset($category) ? 'Edit category':'Add category'}}</button>
+                        <button class="btn btn-success">{{  isset($tags) ? 'Edit tag':'Add tag'}}</button>
                     </div>
             </form>
             </div>

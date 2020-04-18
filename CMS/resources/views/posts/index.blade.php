@@ -19,6 +19,7 @@
                 <thead>
                     <th>Image</th>
                     <th>Title</th>
+                    <th>Category</th>
                 </thead>
                 @foreach($posts as $post)
                     <tr>
@@ -29,6 +30,8 @@
                         <td>
                             {{$post->title}}
                         </td>
+                        <td>
+                        <td>
                         @if($post->trashed())
                             <td>
                             <form action="{{route('restore-posts', $post->id)}}" method="post">

@@ -29,3 +29,9 @@ Route::get('trashed-posts', 'PostsController@trashed')->name('trashed-posts.inde
 Route::put('restore-posts/{post}', 'PostsController@restore')->name('restore-posts');
 Route::resource('tags', 'TagsController');
 });
+
+ Route::middleware((['auth' , 'admin']))->group(function(){
+
+     Route::get('users', 'UsersController@index')->name('users.index');
+
+});

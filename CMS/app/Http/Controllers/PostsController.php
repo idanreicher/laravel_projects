@@ -56,7 +56,7 @@ class PostsController extends Controller
         ]);
 
         if($request->tags){
-            dd($post->tags()->attach($request->tags));
+
             $post->tags()->attach($request->tags);
         }
 

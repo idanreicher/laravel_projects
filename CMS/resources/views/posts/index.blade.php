@@ -27,10 +27,23 @@
                         <td>
                             <img src="{{$post->image}}"  width="100" height="100">
                         </td>
+                            <td>
+                                {{$post->title}}
+                            </td>
+
                         <td>
-                            {{$post->title}}
+                                @if(isset($post->category))
+                                    <a href="{{ route('categories.edit', $post->category->id) }}">
+                                        {{ $post->category->name}}
+                                    </a>
+
+                                @endif
+
+
                         </td>
-                        <td>
+
+
+
                         <td>
                         @if($post->trashed())
                             <td>

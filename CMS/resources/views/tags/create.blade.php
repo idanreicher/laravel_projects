@@ -16,7 +16,6 @@
             <div class="card-body">
 
             <form action="{{isset($tags) ? route('tags.update', $tags->id) : route('tags.store')}}" method="POST">
-                @include('partials.errors')
                 @if(isset($tags))
                     @method('PUT')
                 @endif

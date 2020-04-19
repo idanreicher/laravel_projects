@@ -84,7 +84,7 @@ class TagsController extends Controller
             'name' => $request->name
         ]);
 
-        session()->flash('Tag updated succssefully');
+        session()->flash('success','Tag updated succssefully');
 
         return redirect(route('tags.index'));
     }
@@ -97,6 +97,12 @@ class TagsController extends Controller
      */
     public function destroy(Tag $tag)
     {
+
+        if ($tag->posts->count() > 0) {
+            session()->flash('error', 'Tag can not be deleted becausa it belongs to some posts !');
+
+            return redirect()->back();
+        }
         $tag->delete();
         session()->flash('success' , 'Tag '. $tag->name . ' deleted');
 

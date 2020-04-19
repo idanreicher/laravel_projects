@@ -8,6 +8,7 @@
 
     <div class="card card-default">
         <div class="card">
+
             <div class="card-header">
                 tags
             </div>
@@ -27,7 +28,7 @@
                             </td>
 
                             <td>
-                                 {{-- {{ $tag->posts->count() }} --}}
+                                 {{ $tag->posts->count() }}
 
                             </td>
                             <td>

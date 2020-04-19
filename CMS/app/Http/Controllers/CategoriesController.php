@@ -83,7 +83,7 @@ class CategoriesController extends Controller
             'name' => $request->name
         ]);
 
-        session()->flash('category updated succssefully');
+        session()->flash('success','category updated succssefully');
 
         return redirect(route('categories.index'));
     }
@@ -96,6 +96,12 @@ class CategoriesController extends Controller
      */
     public function destroy(Category $category)
     {
+
+        if ($category->posts->count() > 0) {
+            session()->flash('success','Category can not be deleted becausa it belongs to some posts !');
+            return redirect()->back();
+        }
+
         $category->delete();
         session()->flash('success' , 'category '. $category->name . ' deleted');
 

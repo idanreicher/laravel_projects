@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use App\Http\Requests\Users\UpdateProfileRequest;
 
 class UsersController extends Controller
 {
@@ -55,9 +56,9 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit()
     {
-        //
+        return view('users.edit')->with('user', auth()->user());
     }
 
     /**
@@ -67,9 +68,18 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateProfileRequest $request)
     {
-        //
+        $user = auth()->user();
+
+        $user->update([
+
+            'name' => $request->name,
+            'about' => $request->about
+        ]);
+
+        session()->flash('success' , $user->name. 'upadated!');
+        return redirect()->back();
     }
 
     /**
@@ -81,5 +91,17 @@ class UsersController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function makeAdmin(User $user)
+    {
+        $user->role = 'admin';
+
+        $user->save();
+        session()->flash('success' , $user->name. 'is now an admin!');
+
+        return redirect('users');
+
+
     }
 }

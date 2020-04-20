@@ -22,6 +22,7 @@
                     <tr>
 
                         <td>
+                            <img width="40px" height="40px" style="border-radius: 50%" src="{{Gravatar::src($user->email)}}" alt="">
                         </td>
                             <td>
                                 {{$user->name}}
@@ -33,7 +34,11 @@
                         </td>
                         <td>
                             @if(!$user->isAdmin())
-                                <button class="btn btn-success btn-sm">Make Admin</button>
+                                <form action="{{route('users.make-admin', $user->id) }}" method="POST">
+                                    @csrf
+                                    <button class="btn btn-success btn-sm" type="submit">Make Admin</button>
+
+                                </form>
                             @endif
 
                         </td>

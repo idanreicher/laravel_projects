@@ -17,6 +17,7 @@ class Post extends Model
         'image' ,
         'content',
         'category_id',
+        'user_id',
         'published_at'
     ];
 
@@ -44,5 +45,10 @@ class Post extends Model
     public function hasTags($tagId)
     {
         return in_array($tagId, $this->tags->pluck('id')->toArray());
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

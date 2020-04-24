@@ -23,6 +23,7 @@ class PostsController extends Controller
      */
     public function index()
     {
+
        return view('posts.index')->with('posts' , Post::all());
 }
 
@@ -52,6 +53,7 @@ class PostsController extends Controller
             'image' => $image,
             'content' => $request->content,
             'category_id' => $request->category,
+            'user_id' => auth()->user()->id,
             'created_at' => $request->created_at
         ]);
 

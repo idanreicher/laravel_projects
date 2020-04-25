@@ -2,20 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Discussion;
-use App\Http\Requests\CreateDiscussionRequest;
-use CreateDiscussionsTable;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 
-
-class DiscussionsController extends Controller
+class RepliesController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth')->only(['create' ,'store']);
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -23,10 +13,7 @@ class DiscussionsController extends Controller
      */
     public function index()
     {
-        return view('discussions.index',[
-
-            'discussions' => Discussion::paginate(5)
-        ]);
+        //
     }
 
     /**
@@ -36,7 +23,7 @@ class DiscussionsController extends Controller
      */
     public function create()
     {
-        return view('discussions.create');
+        //
     }
 
     /**
@@ -45,22 +32,9 @@ class DiscussionsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CreateDiscussionRequest $request)
+    public function store(Request $request)
     {
-
-        // one to many relationship
-        auth()->user()->discussions()->create([
-
-            'title' => $request->title,
-            'slug' => Str::slug($request->title),
-            'content' => $request->content,
-            'channel_id' => $request->channel,
-
-        ]);
-
-        session()->flash('success', 'session created successfuly');
-
-        return redirect()->route('discussions.index');
+        //
     }
 
     /**
@@ -69,13 +43,9 @@ class DiscussionsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Discussion $discussion)
+    public function show($id)
     {
-        return view('discussions.show' , [
-
-            'discussion' => $discussion
-
-        ]);
+        //
     }
 
     /**

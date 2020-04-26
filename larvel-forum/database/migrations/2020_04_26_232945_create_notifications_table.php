@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateChannelsTable extends Migration
+class CreateNotificationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,12 @@ class CreateChannelsTable extends Migration
      */
     public function up()
     {
-        Schema::create('channels', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('slug')->quniue();
+        Schema::create('notifications', function (Blueprint $table) {
+            $table->uuid('id')->primary();
+            $table->string('type');
+            $table->morphs('notifiable');
+            $table->text('data');
+            $table->timestamp('read_at')->nullable();
             $table->timestamps();
         });
     }
@@ -28,6 +30,6 @@ class CreateChannelsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('channels');
+        Schema::dropIfExists('notifications');
     }
 }

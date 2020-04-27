@@ -23,7 +23,7 @@
         @endforeach
         <div class="card" >
             <div class="card-body" >
-                {{$discussions->links()}}
+                {{$discussions->appends(['channel' => request()->query('channel')])->links()}}
             </div>
         </div>
 @endsection

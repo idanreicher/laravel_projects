@@ -70,17 +70,19 @@
                             </div>
 
                             <div>
+                                @auth
 
-                            @if(auth()->user()->id == $discussion->author->id)
+                                    @if(auth()->user()->id == $discussion->author->id)
 
-                                <form action="{{route('discssions.best-reply', ['discussion' => $discussion->slug, 'reply' => $reply->id])}}" method="POST">
-                                    @csrf
+                                        <form action="{{route('discssions.best-reply', ['discussion' => $discussion->slug, 'reply' => $reply->id])}}" method="POST">
+                                            @csrf
 
-                                    <button type="submit" class="btn btn-primary btn-sm">mark as best reply</button>
+                                            <button type="submit" class="btn btn-primary btn-sm">mark as best reply</button>
 
-                                </form>
+                                        </form>
 
-                            @endif
+                                    @endif
+                                @endauth
 
 
 

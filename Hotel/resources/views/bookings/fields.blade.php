@@ -37,7 +37,7 @@
 </div>
 
 <div class="form-group row">
-    <label class="col-sm-2 col-form-label" for="start">End Date</label>
+    <label class="col-sm-2 col-form-label" for="end">End Date</label>
     <div class="col-sm-10">
         <input name="end" type="date" class="form-control" required placeholder="yyyy-mm-dd" value="{{ $booking->end ?? '' }}"/>
         <small class="form-text text-muted">The end date for the booking.</small>
@@ -48,8 +48,8 @@
     <div class="col-sm-2">Paid Options</div>
     <div class="col-sm-10">
         <div class="form-check">
-            <input name="is_paid" type="checkbox" class="form-check-input" value="{{ $booking->is_paid ? 'checked': '' }}"/>
-            <label class="form-check-label" for="start">Pre-Paid</label>
+            <input name="is_paid" type="checkbox" class="form-check-input" value="1" {{ $booking->is_paid ? 'checked' : '' }}/>
+            <label class="form-check-label" for="is_paid">Pre-Paid</label>
             <small class="form-text text-muted">If the booking is being pre-paid.</small>
         </div>
     </div>

@@ -36,4 +36,11 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    //  many to many relationship
+
+    public function bookings(){
+
+        return $this->belongsToMany('App\bookings', 'bookings_users', 'user_id', 'booking_id');
+    }
 }

@@ -1,6 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
+{{-- lazy loading --}}
+@foreach($booking->users as $user)
+
+    <h3><strong>{{ $user->name }}</strong></h3>
+
+@endforeach
+
 <dl class="row">
     <dt class="col-sm-3">ID</dt>
     <dd class="col-sm-9">{{ $booking->id }}</dd>
@@ -30,3 +37,4 @@
     <dd class="col-sm-9">{{ date('F d, Y', strtotime($booking->updated_at)) }}</dd>
 </dl>
 @endsection
+

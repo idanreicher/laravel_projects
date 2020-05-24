@@ -18,4 +18,20 @@ class Booking extends Model
         'is_paid',
         'notes',
     ];
+
+    //  room belogs to a booking
+
+    public function room(){
+
+        return $this->belongsTo('App\Room');
+    }
+
+    // many to many relationship many booking belogs to many users
+
+    public function users(){
+
+        return $this->belongsToMany('App\User', 'bookings_users', 'booking_id', 'user_id')
+        ->withTimestamps();
+
+    }
 }

@@ -112,22 +112,24 @@ class BookingController extends Controller
      */
     public function update(Request $request, Booking $booking)
     {
-        // DB::table('bookings')->where('id', $booking->id)->update([
-        //     'room_id' => $request->Input('room_id'),
-        //     'start' => $request->Input('start'),
-        //     'end' => $request->Input('end'),
-        //     'is_reservation' => $request->Input('is_reservation', false),
-        //     'is_paid' => $request->Input('is_paid', false),
-        //     'notes' => $request->Input('notes'),
-        // ]);
-        //dd($request);
-        $booking->fill($request->input());
+        (\App\Jobs\ProccessBookingJob::dispatch($booking));
+
+        $validatedData = $request->validate([
+            'start' => 'required|date',
+            'end' => 'required|date',
+            'room_id' => 'required|exists:rooms,id',
+            'user_id' => 'required|exists:rooms,id',
+            'is_paid' => 'nullable',
+            'start' => 'present',
+            'is_reservation' => 'required',
+        ]);
+        $booking->fill($validatedData);
         $booking->save();
 
         DB::table('bookings_users')->where('booking_id', $booking->booking_id)->update([
-            'user_id' => $request->input('user_id')
+            'user_id' => $validatedData['user_id']
         ]);
-        //$booking->users()->sync([$request->input('user_id')]);
+
         return redirect()->action('BookingController@index');
     }
 

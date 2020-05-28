@@ -17,9 +17,26 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/test', function(){return "test";})->middleware('\App\Http\Middleware\CheckQueryParam');
+Auth::routes(['verify' => true]);
+// Route::get('/test', function(){return "test";})->middleware('\App\Http\Middleware\CheckQueryParam');
+Route::get('/test', function(){
 
-Auth::routes();
+    // $secret = encrypt('black-saber');
+    // var_dump($secret);
+    // var_dump(decrypt($secret));
+
+    $hash = Hash::make('black-saber');
+    var_dump($hash);
+    var_dump(Hash::check('black-saber',$hash));
+    var_dump(Hash::needsRehash($hash));
+    $oldHash = Hash::make('black-saber', ['rounds' => 5]);
+    var_dump(Hash::needsRehash($oldHash));
+    var_dump($oldHash);
+    var_dump(Hash::make('blak-saber'));
+
+
+})->middleware('verified');
+
 
 Route::get('/home', 'HomeController@index')->name('home');
 
